@@ -4,24 +4,18 @@ from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
-import streamlit as st
-
-
-# ---------------------------- Configuration ----------------------------
-
+import streamlit as st# ---------------------------- Configuration ----------------------------
 st.set_page_config(
     page_title="Personal Finance",
     page_icon="💰",
     layout="wide",
     initial_sidebar_state="expanded",
 )
-
 DATA_FILE = Path("finance_data.csv")
 BUDGET_FILE = Path("monthly_budgets.json")
 COLUMNS = ["date", "amount", "category", "description"]
 DATE_FORMAT = "%d-%m-%Y"
 CURRENCY = "₹"
-
 
 def _stretch_kwargs():
     """Use width='stretch' on new Streamlit, use_container_width on older ones."""
@@ -35,8 +29,6 @@ def _stretch_kwargs():
 
 
 STRETCH = _stretch_kwargs()
-
-
 # ---------------------------- Styling ----------------------------
 
 st.markdown(
@@ -267,25 +259,9 @@ st.markdown(
         background: #23845e;
       }
 
-      /* Force readable form controls even if the browser/Streamlit is in dark mode */
-      div[data-baseweb="select"] > div,
-      div[data-baseweb="input"],
-      div[data-baseweb="base-input"],
-      [data-testid="stDateInput"] div[data-baseweb="input"] {
-        background: #ffffff !important;
-        border-color: #dce8e0 !important;
-        border-radius: 10px !important;
-      }
-
-      div[data-baseweb="select"] *,
-      div[data-baseweb="input"] input,
-      div[data-baseweb="base-input"] input,
-      [data-testid="stNumberInput"] button {
-        color: #18372d !important;
-        -webkit-text-fill-color: #18372d !important;
-      }
-
-      div[data-baseweb="select"] svg,
+      /* Streamlit 1.65+ renders widgets with React Aria (no data-baseweb nodes),
+         so only the theme-independent pieces need help here. */
+      [data-testid="stSelectbox"] button svg,
       [data-testid="stDateInput"] svg,
       [data-testid="stNumberInput"] button svg {
         fill: #18372d !important;
@@ -294,21 +270,7 @@ st.markdown(
 
       input::placeholder {
         color: #8a9a91 !important;
-        -webkit-text-fill-color: #8a9a91 !important;
         opacity: 1 !important;
-      }
-
-      /* Dropdown menu (rendered in a popover outside the main page) */
-      div[data-baseweb="popover"] ul,
-      div[data-baseweb="popover"] li,
-      div[data-baseweb="popover"] [role="option"] {
-        background: #ffffff !important;
-        color: #18372d !important;
-      }
-
-      div[data-baseweb="popover"] li:hover,
-      div[data-baseweb="popover"] [role="option"]:hover {
-        background: #eaf5ef !important;
       }
 
       /* Primary buttons (covers newer Streamlit test ids) */
@@ -333,21 +295,25 @@ st.markdown(
         border-color: #104d39 !important;
       }
 
-      /* Transaction type dropdown: mint background, dark green bold text */
-      .st-key-transaction_type div[data-baseweb="select"] > div {
-        background: #eaf5ef !important;
+      /* Transaction type dropdown: mint surface with bold dark green value.
+         Streamlit 1.65+ renders selectbox as a React Aria combobox, whose visible
+         surface is the [role="group"] wrapper and whose text is the inner input. */
+      .st-key-transaction_type [role="group"] {
+        background: #e0f2e9 !important;
         border: 1.5px solid #176448 !important;
         border-radius: 10px !important;
       }
 
-      .st-key-transaction_type div[data-baseweb="select"] * {
-        color: #103f32 !important;
-        -webkit-text-fill-color: #103f32 !important;
+      .st-key-transaction_type [role="group"] input {
+        background: transparent !important;
+        color: #14532d !important;
+        -webkit-text-fill-color: #14532d !important;
         font-weight: 700 !important;
       }
 
-      .st-key-transaction_type div[data-baseweb="select"] svg {
+      .st-key-transaction_type [role="group"] button svg {
         fill: #176448 !important;
+        color: #176448 !important;
       }
 
       hr {
@@ -376,15 +342,12 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-
 # ---------------------------- Data helpers ----------------------------
 
 def ensure_files():
     """Create the transaction CSV with the original four-column structure."""
     if not DATA_FILE.exists() or DATA_FILE.stat().st_size == 0:
         pd.DataFrame(columns=COLUMNS).to_csv(DATA_FILE, index=False)
-
 
 def load_transactions():
     ensure_files()
@@ -410,7 +373,6 @@ def load_transactions():
 
     return df.sort_values("date", ascending=False).reset_index(drop=True)
 
-
 def append_transaction(transaction_date, amount, category, description):
     """Append one row, making sure it never gets glued to an unterminated last line."""
     ensure_files()
@@ -432,7 +394,6 @@ def append_transaction(transaction_date, amount, category, description):
     }])
 
     row.to_csv(DATA_FILE, mode="a", header=False, index=False)
-
 
 def load_budgets():
     if not BUDGET_FILE.exists():
@@ -461,7 +422,6 @@ def month_transactions(df, selected_month):
         & (df["date"].dt.month == selected_month.month)
     ].copy()
 
-
 def totals(df):
     income = df.loc[df["category"] == "Income", "amount"].sum()
     expenses = df.loc[df["category"] == "Expense", "amount"].sum()
@@ -471,7 +431,6 @@ def totals(df):
 def flash(message):
     """Queue a message that survives st.rerun()."""
     st.session_state["flash_message"] = message
-
 
 def show_flash():
     message = st.session_state.pop("flash_message", None)
@@ -498,7 +457,6 @@ def month_picker(label, df, key):
 
     return date(chosen.year, chosen.month, 1)
 
-
 def metric_card(label, value, note, icon):
     st.markdown(
         f"""
@@ -510,7 +468,6 @@ def metric_card(label, value, note, icon):
         """,
         unsafe_allow_html=True,
     )
-
 
 def show_transactions_table(df):
     if df.empty:
@@ -530,9 +487,7 @@ def show_transactions_table(df):
 
     st.dataframe(display, hide_index=True, **STRETCH)
 
-
 # ---------------------------- Sidebar ----------------------------
-
 st.sidebar.markdown("## 💰 My Finance")
 st.sidebar.caption("Personal money dashboard")
 
@@ -541,14 +496,11 @@ page = st.sidebar.radio(
     ["Dashboard", "Add transaction", "Transactions", "Monthly budget"],
     label_visibility="collapsed",
 )
-
 st.sidebar.divider()
 st.sidebar.caption("Your data is stored locally in CSV and JSON files.")
 st.sidebar.caption(f"Transaction file: `{DATA_FILE.name}`")
 st.sidebar.divider()
 st.sidebar.caption("Made with Python · Streamlit · Pandas · Plotly")
-
-
 # ---------------------------- Load data ----------------------------
 
 df = load_transactions()
@@ -567,10 +519,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
-
 # ---------------------------- Dashboard ----------------------------
-
 if page == "Dashboard":
 
     top_left, top_right = st.columns([2, 1])
