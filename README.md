@@ -1,93 +1,177 @@
-# Personal Finance Tracker
+# 💰 Personal Finance Tracker
 
-A simple personal finance management dashboard built with **Python**, **Streamlit**, **Pandas**, and **Plotly**. It helps you record income and expenses, review monthly finances, and monitor a monthly spending budget.
+A simple and modern personal finance management dashboard built with **Python, Streamlit, Pandas, and Plotly**.
 
-## Features
+Personal Finance Tracker helps you manage your daily finances by recording income and expenses, reviewing monthly financial activity, tracking savings, and monitoring your monthly spending budget.
 
-- **Dashboard overview:** View monthly income, expenses, net savings, and savings rate.
-- **Charts:** Compare income and expenses and view an expense breakdown.
-- **Add transactions:** Record income or expenses with a date, amount, type, and description.
-- **Transaction history:** Browse, filter, and search saved transactions.
-- **CSV export:** Download filtered transaction records.
-- **Monthly budget:** Set a monthly spending limit and track budget progress.
-- **Local data storage:** Store transactions in a CSV file and budgets in a JSON file.
+## 📸 Screenshots
 
-## Built With
+### Dashboard Overview
+![Dashboard](dashbord.png)
 
-- Python
-- Streamlit
-- Pandas
-- Plotly
 
-## Project Files
+### Add Transaction
+![Add Transaction](transaction.png)
+
+### Transaction History
+![Transaction History](history.png)
+
+### Monthly Budget
+![Monthly Budget](budget.png)
+
+> **Note:** Add your actual application screenshots to the `screenshots` folder using the filenames shown above.
+
+## ✨ Features
+
+- **Dashboard Overview:** View monthly income, expenses, net savings, and savings rate.
+- **Income and Expense Charts:** Compare your monthly income and expenses visually.
+- **Expense Breakdown:** View how your expenses are distributed.
+- **Add Transactions:** Record income and expenses with a date, amount, transaction type, and description.
+- **Transaction History:** Browse, search, and filter saved transactions.
+- **CSV Export:** Download filtered transaction records.
+- **Monthly Budget:** Set a monthly spending limit and monitor your budget progress.
+- **Budget Alerts:** Receive notifications when approaching or exceeding your budget.
+- **Expense History:** View monthly expense trends.
+- **Local Data Storage:** Store transaction records in CSV format and budget information in JSON format.
+
+## 🛠️ Built With
+
+- [Python](https://www.python.org/)
+- [Streamlit](https://streamlit.io/)
+- [Pandas](https://pandas.pydata.org/)
+- [Plotly](https://plotly.com/python/)
+
+## 📁 Project Structure
 
 ```text
 Personal Finance Tracker/
+│
 ├── app.py
 ├── requirements.txt
 ├── README.md
-├── finance_data.csv          # Created automatically when the app runs
-└── monthly_budgets.json      # Created when a monthly budget is saved
+│
+├── screenshots/
+│   ├── dashboard.png
+│   ├── add-transaction.png
+│   ├── transactions.png
+│   └── monthly-budget.png
+│
+├── finance_data.csv
+└── monthly_budgets.json
 ```
 
-## Requirements
+**File descriptions:**
 
-- Python installed on your computer
-- The packages listed in `requirements.txt`
+- `app.py` – Main Streamlit application.
+- `requirements.txt` – Required Python packages.
+- `README.md` – Project documentation.
+- `screenshots/` – Application screenshots.
+- `finance_data.csv` – Stores transaction records.
+- `monthly_budgets.json` – Stores monthly budget settings.
 
-Install the dependencies from the project folder:
+The CSV file is created automatically when the application runs if it does not exist. The JSON file is created when a monthly budget is saved.
+
+## ⚙️ Requirements
+
+Before running the application, make sure you have:
+
+- Python installed on your computer.
+- pip package manager.
+- An internet connection for installing dependencies.
+
+## 📦 Installation
+
+**1. Clone the repository**
+
+```bash
+git clone YOUR_GITHUB_REPOSITORY_URL
+```
+
+**2. Navigate to the project directory**
+
+```bash
+cd "Personal Finance Tracker"
+```
+
+**3. Install the required dependencies**
 
 ```bash
 python -m pip install -r requirements.txt
 ```
 
-## Run the Application
+## ▶️ Run the Application
 
-Open a terminal in the project folder and run:
+Start the Streamlit application using:
 
 ```bash
 python -m streamlit run app.py
 ```
 
-On Windows, if needed, use:
+On Windows, if you need to use a specific Python installation, you can run:
 
 ```powershell
 & "$env:LOCALAPPDATA\Python\pythoncore-3.14-64\python.exe" -m streamlit run app.py
 ```
 
-Streamlit will display a local URL, usually:
+After starting the application, Streamlit will display a local URL:
 
 ```text
 http://localhost:8501
 ```
 
-Open that URL in your web browser.
+Open this URL in your web browser to access the dashboard.
 
-> Run the app with Streamlit, not with `python app.py`.
+> **Important:** Run the application using Streamlit, not `python app.py`.
 
-## How to Use
+## 📖 How to Use
 
-1. Open the dashboard in your browser.
-2. Select a month to review its financial summary.
-3. Choose **Add transaction** in the sidebar to record income or an expense.
-4. Choose **Transactions** to search, filter, and export records.
-5. Choose **Monthly budget** to set a spending limit and monitor your progress.
+1. Open the application in your web browser.
+2. Select a month from the Dashboard to view your financial summary.
+3. Navigate to **Add Transaction** to record income or expenses.
+4. Visit **Transactions** to search, filter, and export transaction records.
+5. Navigate to **Monthly Budget** to set your spending limit.
+6. Monitor your expenses and budget progress through the dashboard.
 
-## Data and Privacy
+## 💾 Data Storage and Privacy
 
-The app stores transaction data locally in `finance_data.csv` and monthly budget settings in `monthly_budgets.json`, in the project directory. Keep backups of these files if you want to preserve your records.
+The application stores financial information locally in the project directory.
 
-**Do not commit personal financial records to a public GitHub repository.** These files may contain private information.
+- `finance_data.csv` stores income and expense transactions.
+- `monthly_budgets.json` stores monthly budget settings.
 
-## Currency and Date Format
+No database or cloud account is required.
 
-- Currency displayed by the app: Indian Rupees (₹)
-- Transaction dates are stored in `DD-MM-YYYY` format.
+**Privacy recommendations:**
+- Keep regular backups of your financial data.
+- Do not upload personal financial records to a public GitHub repository.
+- Avoid sharing screenshots containing sensitive financial information.
 
-## Future Improvements
+## 💱 Currency and Date Format
 
-Possible enhancements include recurring transactions, category-based budgets, custom date-range reports, and database storage.
+- **Currency:** Indian Rupees (₹)
+- **Transaction Date Format:** DD-MM-YYYY
+- **Storage:** Local CSV and JSON files.
 
-## License
+## 🚀 Future Improvements
+
+Possible enhancements for future versions:
+
+- Recurring income and expense transactions.
+- Custom expense categories.
+- Category-based monthly budgets.
+- Edit and delete transactions.
+- Custom date-range financial reports.
+- Downloadable PDF reports.
+- Database integration.
+- User authentication and secure access.
+- Cloud data backup and synchronization.
+
+## 📄 License
 
 No license has been specified for this project yet.
+
+---
+
+**Developed using Python, Streamlit, Pandas, and Plotly.**
+
+*Making personal finance management simpler and smarter! 💚*
