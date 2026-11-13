@@ -12,6 +12,7 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
+
 # Resolve next to this script: the working directory differs between a local
 # `streamlit run` from another folder and a Streamlit Community Cloud deploy.
 DATA_FILE = Path(__file__).resolve().parent / "finance_data.csv"
@@ -319,6 +320,46 @@ st.markdown(
         color: #176448 !important;
       }
 
+      /* Transaction table is plain HTML because st.dataframe needs pyarrow,
+         which some Windows setups block at load time. */
+      .txn-wrap {
+        overflow-x: auto;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        box-shadow: 0 6px 18px rgba(16, 63, 50, .06);
+      }
+
+      table.txn-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: .92rem;
+      }
+
+      table.txn-table thead th {
+        background: var(--mint);
+        color: var(--green-dark);
+        font-weight: 700;
+        text-align: left;
+        padding: .7rem 1rem;
+        border-bottom: 1px solid var(--line);
+        white-space: nowrap;
+      }
+
+      table.txn-table tbody td {
+        padding: .62rem 1rem;
+        border-bottom: 1px solid #f0f5f2;
+        color: var(--ink);
+      }
+
+      table.txn-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      table.txn-table tbody tr:hover {
+        background: #f6faf8;
+      }
+
       hr {
         border-color: #e1ebe4;
       }
@@ -488,7 +529,8 @@ def show_transactions_table(df):
         "description": "Description",
     })
 
-    st.dataframe(display, hide_index=True, **STRETCH)
+    table_html = display.to_html(index=False, escape=True, border=0, classes="txn-table")
+    st.markdown(f'<div class="txn-wrap">{table_html}</div>', unsafe_allow_html=True)
 
 # ---------------------------- Sidebar ----------------------------
 st.sidebar.markdown("## 💰 My Finance")
