@@ -12,8 +12,10 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded",
 )
-DATA_FILE = Path("finance_data.csv")
-BUDGET_FILE = Path("monthly_budgets.json")
+# Resolve next to this script: the working directory differs between a local
+# `streamlit run` from another folder and a Streamlit Community Cloud deploy.
+DATA_FILE = Path(__file__).resolve().parent / "finance_data.csv"
+BUDGET_FILE = Path(__file__).resolve().parent / "monthly_budgets.json"
 COLUMNS = ["date", "amount", "category", "description"]
 DATE_FORMAT = "%d-%m-%Y"
 CURRENCY = "₹"
