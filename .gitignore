@@ -1,0 +1,11 @@
+# Nested clone of this same repository - it must not be tracked
+/Personal-Finance-Tracker/
+
+# Streamlit only reads .streamlit/config.toml; this root copy is a leftover
+/config.toml
+
+__pycache__/
+*.py[cod]
+.streamlit/secrets.toml
+.venv/
+venv/
