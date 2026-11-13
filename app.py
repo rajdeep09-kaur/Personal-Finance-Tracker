@@ -4,8 +4,12 @@ from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
+<<<<<<< HEAD
 import streamlit as st
 # ---------------------------- Configuration ----------------------------
+=======
+import streamlit as st# ---------------------------- Configuration ----------------------------
+>>>>>>> c4e41e962fcb8671d94de93ff23f7b08dd04aab3
 st.set_page_config(
     page_title="Personal Finance",
     page_icon="💰",
@@ -19,8 +23,12 @@ DATE_FORMAT = "%d-%m-%Y"
 CURRENCY = "₹"
 
 def _stretch_kwargs():
+<<<<<<< HEAD
     """Use width='stretch'
      on new Streamlit, use_container_width on older ones."""
+=======
+    """Use width='stretch' on new Streamlit, use_container_width on older ones."""
+>>>>>>> c4e41e962fcb8671d94de93ff23f7b08dd04aab3
     try:
         major, minor = (int(p) for p in st.__version__.split(".")[:2])
         if (major, minor) >= (1, 50):
@@ -134,6 +142,10 @@ st.markdown(
         top: -105px;
         background: rgba(255,255,255,.07);
       }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c4e41e962fcb8671d94de93ff23f7b08dd04aab3
       .hero h1 {
         color: #ffffff !important;
         margin: 0;
