@@ -891,4 +891,3 @@ elif page == "Monthly budget":
         )
 
         st.plotly_chart(fig, **STRETCH)
-ZZ

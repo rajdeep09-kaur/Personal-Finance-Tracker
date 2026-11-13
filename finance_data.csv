@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 date,amount,category,description
 04-11-2026,10000.0,Income,Salary
 04-11-2026,1000.0,Expense,Electricity Bill
 04-11-2026,1500.0,Expense,gas bill
 04-11-2026,4000.0,Expense,Rent
 05-11-2026,100.0,Expense,TRAVEL
-=======
-date,amount,category,description
-04-11-2026,10000.0,Income,Salary
-04-11-2026,1000.0,Expense,Electricity Bill
-04-11-2026,1500.0,Expense,gas bill
-04-11-2026,4000.0,Expense,Rent
->>>>>>> c4e41e962fcb8671d94de93ff23f7b08dd04aab3
